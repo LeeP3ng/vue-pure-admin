@@ -4,7 +4,6 @@ import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
 import { ElMessageBox } from "element-plus";
 import { usePublicHooks } from "../../hooks";
-import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import type { FormItemProps } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
@@ -267,7 +266,7 @@ export function useRole(treeRef: Ref) {
   };
 
   const filterMethod = (query: string, node) => {
-    return transformI18n(node.title)!.includes(query);
+    return node.title!.includes(query);
   };
 
   onMounted(async () => {
@@ -314,7 +313,6 @@ export function useRole(treeRef: Ref) {
     handleSave,
     handleDelete,
     filterMethod,
-    transformI18n,
     onQueryChanged,
     // handleDatabase,
     handleSizeChange,

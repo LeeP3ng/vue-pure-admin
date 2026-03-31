@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
 import LayFrame from "../lay-frame/index.vue";
-import LayFooter from "../lay-footer/index.vue";
-import { useTags } from "@/layout/hooks/useTag";
 import { useGlobal, isNumber } from "@pureadmin/utils";
-import BackTopIcon from "@/assets/svg/back_top.svg?component";
 import { h, computed, Transition, defineComponent } from "vue";
 import { usePermissionStoreHook } from "@/store/modules/permission";
 
@@ -12,8 +8,6 @@ const props = defineProps({
   fixedHeader: Boolean
 });
 
-const { t } = useI18n();
-const { tagsStyle } = useTags();
 const { $storage, $config } = useGlobal<GlobalPropertiesApi>();
 
 const isKeepAlive = computed(() => {
@@ -53,17 +47,9 @@ const getMainWidth = computed(() => {
 const getSectionStyle = computed(() => {
   return [
     hideTabs.value && layout ? "padding-top: 48px;" : "",
-    !hideTabs.value && layout
-      ? tagsStyle.value == "chrome"
-        ? "padding-top: 85px;"
-        : "padding-top: 81px;"
-      : "",
+    !hideTabs.value && layout ? "padding-top: 81px;" : "",
     hideTabs.value && !layout.value ? "padding-top: 48px;" : "",
-    !hideTabs.value && !layout.value
-      ? tagsStyle.value == "chrome"
-        ? "padding-top: 85px;"
-        : "padding-top: 81px;"
-      : "",
+    !hideTabs.value && !layout.value ? "padding-top: 81px;" : "",
     props.fixedHeader
       ? ""
       : `padding-top: 0;${
@@ -132,12 +118,6 @@ const transitionMain = defineComponent({
                 'flex-direction': 'column'
               }"
             >
-              <el-backtop
-                :title="t('buttons.pureBackTop')"
-                target=".app-main .el-scrollbar__wrap"
-              >
-                <BackTopIcon />
-              </el-backtop>
               <div class="grow">
                 <transitionMain :route="route">
                   <keep-alive
@@ -160,7 +140,6 @@ const transitionMain = defineComponent({
                   />
                 </transitionMain>
               </div>
-              <LayFooter v-if="!hideFooter" />
             </el-scrollbar>
             <div v-else class="grow">
               <transitionMain :route="route">
@@ -188,9 +167,6 @@ const transitionMain = defineComponent({
         </LayFrame>
       </template>
     </router-view>
-
-    <!-- 页脚 -->
-    <LayFooter v-if="!hideFooter && !fixedHeader" />
   </section>
 </template>
 
@@ -198,7 +174,8 @@ const transitionMain = defineComponent({
 .app-main {
   position: relative;
   width: 100%;
-  height: 100vh;
+
+  /* height: 100vh; */
   overflow-x: hidden;
 }
 

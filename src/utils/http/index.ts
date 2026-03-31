@@ -11,7 +11,6 @@ import type {
 } from "./types.d";
 import { stringify } from "qs";
 import { message } from "@/utils/message";
-import { $t, transformI18n } from "@/plugins/i18n";
 import { getToken, formatToken } from "@/utils/auth";
 import { useUserStoreHook } from "@/store/modules/user";
 
@@ -95,7 +94,7 @@ class PureHttp {
                       .catch(_err => {
                         PureHttp.requests = [];
                         useUserStoreHook().logOut();
-                        message(transformI18n($t("login.pureLoginExpired")), {
+                        message("登录已过期，请重新登录", {
                           type: "warning"
                         });
                       })

@@ -67,7 +67,6 @@ const {
   handleSave,
   handleDelete,
   filterMethod,
-  transformI18n,
   onQueryChanged,
   // handleDatabase,
   handleSizeChange,
@@ -165,9 +164,7 @@ onMounted(() => {
             table-layout="auto"
             :loading="loading"
             :size="size"
-            adaptive
             :row-style="rowStyle"
-            :adaptiveConfig="{ offsetBottom: 108 }"
             :data="dataList"
             :columns="dynamicColumns"
             :pagination="{ ...pagination, size }"
@@ -316,7 +313,7 @@ onMounted(() => {
           :filter-method="filterMethod"
         >
           <template #default="{ node }">
-            <span>{{ transformI18n(node.label) }}</span>
+            <span>{{ node.label }}</span>
           </template>
         </el-tree-v2>
       </div>
@@ -327,10 +324,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 :deep(.el-dropdown-menu__item i) {
   margin: 0;
-}
-
-.main-content {
-  margin: 24px 24px 0 !important;
 }
 
 .search-form {

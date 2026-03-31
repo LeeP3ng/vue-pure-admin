@@ -110,14 +110,6 @@ declare global {
     TooltipEffect?: Effect;
     ResponsiveStorageNameSpace?: string;
     MenuSearchHistory?: number;
-    MapConfigure?: {
-      amapKey?: string;
-      options: {
-        resizeEnable?: boolean;
-        center?: number[];
-        zoom?: number;
-      };
-    };
   }
 
   /**
@@ -131,7 +123,6 @@ declare global {
     hiddenSideBar?: boolean;
     multiTagsCache?: boolean;
     keepAlive?: boolean;
-    locale?: string;
     layout?: string;
     theme?: string;
     darkMode?: boolean;
@@ -148,14 +139,6 @@ declare global {
     watermarkText?: string;
     tagsStyle?: string;
     menuSearchHistory?: number;
-    mapConfigure?: {
-      amapKey?: string;
-      options: {
-        resizeEnable?: boolean;
-        center?: number[];
-        zoom?: number;
-      };
-    };
     username?: string;
   }
 
@@ -163,9 +146,6 @@ declare global {
    * `responsive-storage` 本地响应式 `storage` 的类型声明
    */
   interface ResponsiveStorage {
-    locale: {
-      locale?: string;
-    };
     layout: {
       layout?: string;
       theme?: string;

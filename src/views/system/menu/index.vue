@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useMenu } from "./utils/hook";
-import { transformI18n } from "@/plugins/i18n";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 
@@ -85,8 +84,6 @@ function onFullscreen() {
       <template v-slot="{ size, dynamicColumns }">
         <pure-table
           ref="tableRef"
-          adaptive
-          :adaptiveConfig="{ offsetBottom: 45 }"
           align-whole="center"
           row-key="id"
           showOverflowTooltip
@@ -124,7 +121,7 @@ function onFullscreen() {
               新增
             </el-button>
             <el-popconfirm
-              :title="`是否确认删除菜单名称为${transformI18n(row.title)}的这条数据${row?.children?.length > 0 ? '。注意下级菜单也会一并删除，请谨慎操作' : ''}`"
+              :title="`是否确认删除菜单名称为${row.title}的这条数据${row?.children?.length > 0 ? '。注意下级菜单也会一并删除，请谨慎操作' : ''}`"
               @confirm="handleDelete(row)"
             >
               <template #reference>
@@ -149,10 +146,6 @@ function onFullscreen() {
 <style lang="scss" scoped>
 :deep(.el-table__inner-wrapper::before) {
   height: 0;
-}
-
-.main-content {
-  margin: 24px 24px 0 !important;
 }
 
 .search-form {

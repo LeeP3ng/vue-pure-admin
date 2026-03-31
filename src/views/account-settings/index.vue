@@ -4,18 +4,12 @@ import { useRouter } from "vue-router";
 import { ReText } from "@/components/ReText";
 import Profile from "./components/Profile.vue";
 import { ref, onMounted, onBeforeMount } from "vue";
-import Preferences from "./components/Preferences.vue";
-import SecurityLog from "./components/SecurityLog.vue";
 import { useGlobal, deviceDetection } from "@pureadmin/utils";
-import AccountManagement from "./components/AccountManagement.vue";
 import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
 import LaySidebarTopCollapse from "@/layout/components/lay-sidebar/components/SidebarTopCollapse.vue";
 
 import leftLine from "~icons/ri/arrow-left-s-line";
 import ProfileIcon from "~icons/ri/user-3-line";
-import PreferencesIcon from "~icons/ri/settings-3-line";
-import SecurityLogIcon from "~icons/ri/window-line";
-import AccountManagementIcon from "~icons/ri/profile-line";
 
 defineOptions({
   name: "AccountSettings"
@@ -39,24 +33,6 @@ const panes = [
     label: "个人信息",
     icon: ProfileIcon,
     component: Profile
-  },
-  {
-    key: "preferences",
-    label: "偏好设置",
-    icon: PreferencesIcon,
-    component: Preferences
-  },
-  {
-    key: "securityLog",
-    label: "安全日志",
-    icon: SecurityLogIcon,
-    component: SecurityLog
-  },
-  {
-    key: "accountManagement",
-    label: "账户管理",
-    icon: AccountManagementIcon,
-    component: AccountManagement
   }
 ];
 const witchPane = ref("profile");
@@ -91,10 +67,10 @@ onMounted(async () => {
         <div class="flex items-center ml-8 my-4">
           <el-avatar :size="48" :src="userInfo.avatar" />
           <div class="ml-4 flex flex-col max-w-32.5">
-            <ReText class="font-bold self-baseline!">
+            <ReText class="font-bold self-baseline! text-white!">
               {{ userInfo.nickname }}
             </ReText>
-            <ReText class="self-baseline!" type="info">
+            <ReText class="self-baseline! text-white!">
               {{ userInfo.username }}
             </ReText>
           </div>

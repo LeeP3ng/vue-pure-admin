@@ -1,8 +1,6 @@
 import { reactive } from "vue";
 import { isPhone } from "@pureadmin/utils";
 import type { FormRules } from "element-plus";
-import { $t, transformI18n } from "@/plugins/i18n";
-import { useUserStoreHook } from "@/store/modules/user";
 
 /** 6位数字验证码正则 */
 export const REGEXP_SIX = /^\d{6}$/;
@@ -17,24 +15,10 @@ const loginRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.purePassWordReg"))));
+          callback(new Error("请输入密码"));
         } else if (!REGEXP_PWD.test(value)) {
-          callback(new Error(transformI18n($t("login.purePassWordRuleReg"))));
-        } else {
-          callback();
-        }
-      },
-      trigger: "blur"
-    }
-  ],
-  verifyCode: [
-    {
-      validator: (rule, value, callback) => {
-        if (value === "") {
-          callback(new Error(transformI18n($t("login.pureVerifyCodeReg"))));
-        } else if (useUserStoreHook().verifyCode !== value) {
           callback(
-            new Error(transformI18n($t("login.pureVerifyCodeCorrectReg")))
+            new Error("密码格式应为8-18位数字、字母、符号的任意两种组合")
           );
         } else {
           callback();
@@ -51,9 +35,9 @@ const phoneRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.purePhoneReg"))));
+          callback(new Error("请输入手机号码"));
         } else if (!isPhone(value)) {
-          callback(new Error(transformI18n($t("login.purePhoneCorrectReg"))));
+          callback(new Error("请输入正确的手机号码格式"));
         } else {
           callback();
         }
@@ -65,9 +49,9 @@ const phoneRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.pureVerifyCodeReg"))));
+          callback(new Error("请输入验证码"));
         } else if (!REGEXP_SIX.test(value)) {
-          callback(new Error(transformI18n($t("login.pureVerifyCodeSixReg"))));
+          callback(new Error("请输入6位数字验证码"));
         } else {
           callback();
         }
@@ -83,9 +67,9 @@ const updateRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.purePhoneReg"))));
+          callback(new Error("请输入手机号码"));
         } else if (!isPhone(value)) {
-          callback(new Error(transformI18n($t("login.purePhoneCorrectReg"))));
+          callback(new Error("请输入正确的手机号码格式"));
         } else {
           callback();
         }
@@ -97,9 +81,9 @@ const updateRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.pureVerifyCodeReg"))));
+          callback(new Error("请输入验证码"));
         } else if (!REGEXP_SIX.test(value)) {
-          callback(new Error(transformI18n($t("login.pureVerifyCodeSixReg"))));
+          callback(new Error("请输入6位数字验证码"));
         } else {
           callback();
         }
@@ -111,9 +95,11 @@ const updateRules = reactive<FormRules>({
     {
       validator: (rule, value, callback) => {
         if (value === "") {
-          callback(new Error(transformI18n($t("login.purePassWordReg"))));
+          callback(new Error("请输入密码"));
         } else if (!REGEXP_PWD.test(value)) {
-          callback(new Error(transformI18n($t("login.purePassWordRuleReg"))));
+          callback(
+            new Error("密码格式应为8-18位数字、字母、符号的任意两种组合")
+          );
         } else {
           callback();
         }
