@@ -121,8 +121,6 @@ export function resetRouter() {
 /** 路由白名单 */
 const whiteList = ["/login"];
 
-const { VITE_HIDE_HOME } = import.meta.env;
-
 router.beforeEach((to: ToRouteType, _from) => {
   to.meta.loaded = loadedPaths.has(to.path);
 
@@ -155,10 +153,6 @@ router.beforeEach((to: ToRouteType, _from) => {
     // 无权限跳转403页面
     if (to.meta?.roles && !isOneOfArray(to.meta?.roles, userInfo?.roles)) {
       return { path: "/error/403" };
-    }
-    // 开启隐藏首页后在浏览器地址栏手动输入首页welcome路由则跳转到404页面
-    if (VITE_HIDE_HOME === "true" && to.fullPath === "/welcome") {
-      return { path: "/error/404" };
     }
     if (_from?.name) {
       // name为超链接

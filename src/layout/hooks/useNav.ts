@@ -37,6 +37,10 @@ export function useNav() {
       : useUserStoreHook()?.nickname;
   });
 
+  const role = computed(() => {
+    return "管理人员";
+  });
+
   const isCollapse = computed(() => {
     return !pureApp.getSidebarStatus;
   });
@@ -65,6 +69,10 @@ export function useNav() {
 
   function toAccountSettings() {
     router.push({ name: "AccountSettings" });
+  }
+
+  function toSystemManagement() {
+    // router.push({ name: "SystemUser" });
   }
 
   function toggleSideBar() {
@@ -105,7 +113,9 @@ export function useNav() {
     isCollapse,
     pureApp,
     username,
+    role,
     tooltipEffect,
-    toAccountSettings
+    toAccountSettings,
+    toSystemManagement
   };
 }

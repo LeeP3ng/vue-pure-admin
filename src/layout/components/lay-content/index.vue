@@ -20,20 +20,8 @@ const transitions = computed(() => {
   };
 });
 
-const hideTabs = computed(() => {
-  return $storage?.configure.hideTabs;
-});
-
-const hideFooter = computed(() => {
-  return $storage?.configure.hideFooter;
-});
-
 const stretch = computed(() => {
   return $storage?.configure.stretch;
-});
-
-const layout = computed(() => {
-  return $storage?.layout.layout === "vertical";
 });
 
 const getMainWidth = computed(() => {
@@ -42,22 +30,6 @@ const getMainWidth = computed(() => {
     : stretch.value
       ? "1440px"
       : "100%";
-});
-
-const getSectionStyle = computed(() => {
-  return [
-    hideTabs.value && layout ? "padding-top: 48px;" : "",
-    !hideTabs.value && layout ? "padding-top: 81px;" : "",
-    hideTabs.value && !layout.value ? "padding-top: 48px;" : "",
-    !hideTabs.value && !layout.value ? "padding-top: 81px;" : "",
-    props.fixedHeader
-      ? ""
-      : `padding-top: 0;${
-          hideTabs.value
-            ? "min-height: calc(100vh - 48px);"
-            : "min-height: calc(100vh - 86px);"
-        }`
-  ];
 });
 
 const transitionMain = defineComponent({
@@ -96,7 +68,7 @@ const transitionMain = defineComponent({
 <template>
   <section
     :class="[fixedHeader ? 'app-main' : 'app-main-nofixed-header']"
-    :style="getSectionStyle"
+    style="padding-top: 66px; min-height: calc(100vh - 66px)"
   >
     <router-view>
       <template #default="{ Component, route }">

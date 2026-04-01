@@ -3,7 +3,8 @@ export default [
     path: "/system",
     meta: {
       icon: "ri:settings-3-line",
-      title: "系统管理"
+      title: "系统管理",
+      rank: 2
     },
     children: [
       {

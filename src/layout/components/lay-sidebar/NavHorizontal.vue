@@ -7,6 +7,7 @@ import { usePermissionStoreHook } from "@/store/modules/permission";
 import LaySidebarItem from "../lay-sidebar/components/SidebarItem.vue";
 import { useRoute } from "vue-router";
 
+import SystemManagementIcon from "~icons/ri/settings-3-line";
 import AccountSettingsIcon from "~icons/ri/user-settings-line";
 import LogoutCircleRLine from "~icons/ri/logout-circle-r-line";
 
@@ -17,9 +18,16 @@ const showLogo = ref(
   )?.showLogo ?? true
 );
 
-// const { route } = useTranslationLang(menuRef);
 const route = useRoute();
-const { title, logout, username, backTopMenu, toAccountSettings } = useNav();
+const {
+  title,
+  logout,
+  username,
+  role,
+  backTopMenu,
+  toAccountSettings,
+  toSystemManagement
+} = useNav();
 
 const defaultActive = computed(() =>
   !isAllEmpty(route.meta?.activePath) ? route.meta.activePath : route.path
@@ -28,15 +36,28 @@ const defaultActive = computed(() =>
 nextTick(() => {
   menuRef.value?.handleResize();
 });
+
+const getTitle = () => {
+  if (route.name == "Dashboard") {
+    return title.value + " · " + route.meta.title;
+  }
+
+  return route.meta.title;
+};
 </script>
 
 <template>
   <div
     v-loading="usePermissionStoreHook().wholeMenus.length === 0"
     class="horizontal-header"
+    :style="
+      route.name == 'Admin'
+        ? 'background: #111827'
+        : 'background: var(--pure-theme-menu-bg) !important'
+    "
   >
     <div v-if="showLogo" class="horizontal-header-left" @click="backTopMenu">
-      <span>{{ title }}</span>
+      <span>{{ getTitle() }}</span>
     </div>
     <!-- <el-menu
       ref="menuRef"
@@ -55,10 +76,20 @@ nextTick(() => {
     <div class="horizontal-header-right">
       <!-- 退出登录 -->
       <el-dropdown trigger="click">
-        <span class="el-dropdown-link navbar-bg-hover">
-          <p v-if="username" class="dark:text-white">{{ username }}</p>
+        <span class="el-dropdown-link navbar-bg-hover flex-col justify-center!">
+          <p class="dark:text-white">当前用户：{{ username }}（{{ role }}）</p>
+          <p class="dark:text-white mt-2!">
+            当前用户：{{ username }}（{{ role }}）
+          </p>
         </span>
         <template #dropdown>
+          <el-dropdown-item @click="toSystemManagement">
+            <IconifyIconOffline
+              :icon="SystemManagementIcon"
+              style="margin: 5px"
+            />
+            系统管理
+          </el-dropdown-item>
           <el-dropdown-item @click="toAccountSettings">
             <IconifyIconOffline
               :icon="AccountSettingsIcon"
